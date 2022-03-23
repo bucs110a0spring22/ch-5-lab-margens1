@@ -32,7 +32,118 @@ import time
 #                   Your Code Goes Below                #
 #########################################################
 
+def setUpDartboard(window, myturtle):
+  '''
+  this function sets the limits of the window and creates the dartboard
+  args: window and the turtle created
+  returns: a drawing of the dartboard
+  '''
+  window.setworldcoordinates(-1,0,2,3)
+  myturtle.color("black")
+  drawSquare(myturtle, 2, -1, 1)
+  drawLine(myturtle, -1, 2, 1, 2)
+  drawLine(myturtle, 0, 3, 0, 1)
+  drawCircle(myturtle, 1)
 
+def drawSquare(myturtle=None, width=0, top_left_x=0, top_left_y=0):
+  '''
+  function draws a square in the window
+  args: the turtle, the width of the square, the cooardinates of the top left corer
+  returns: a drawn square 
+  '''
+  myturtle.penup()
+  myturtle.goto(top_left_x, top_left_y)
+  myturtle.pendown()
+  for angle in range(4):
+    myturtle.forward(width)
+    myturtle.left(90)
+
+def drawLine(myturtle=None, x_start=0, y_start=0, x_end=0, y_end=0):
+  '''
+  draws a line between two given coordinates
+  args: the turtle, the beginning and end coordinates
+  returns: a horizontal and vertical axis
+  '''
+  myturtle.penup()
+  myturtle.goto(x_start, y_start)
+  myturtle.pendown()
+  myturtle.goto(x_end, y_end)
+
+def drawCircle(myturtle, radius):
+  '''
+  takes a radius and draws a circle from it
+  args: the turtle and the radius of the circle
+  returns: a circle on the window
+  '''
+  myturtle.pendown()
+  myturtle.circle(radius)
+
+def throwDart(myturtle):
+  '''
+  sends the turtle to a random position on the board
+  args: the turtle
+  returns: a dot in a random spot on the board, it the dot is in the circle the 
+  dot will be green, if the dot is outside the circle, the dot will be red
+  '''
+  myturtle.penup()
+  myturtle.goto(random.uniform(-1,1), random.uniform(1,3))
+  if myturtle.distance(0,2) < 1:
+    myturtle.color("green")
+  else:
+    myturtle.color("red")
+  myturtle.dot()
+
+def isInCircle(myturtle):
+  '''
+  checks if the dot is within one unit of the origin of the circle
+  args: the turtle
+  returns: True if the dot is in the circle, false if not
+  '''
+  if myturtle.distance(0,2) < 1:
+    return True
+  else:
+    return False
+
+def playDarts(myturtle):
+  '''
+  Sends ten darts for each player, checks to see if the dart is in the circle or 
+  not and awards the player for which the dart is in the circle, does the sume, 
+  then announces the 
+  winner
+  args: the turtle
+  returns: the points of the two players and which has won
+  '''
+  playerOneScore = 0
+  playerTwoScore = 0
+  for throw in range(10):
+    throwDart(myturtle)
+    if isInCircle(myturtle) == True:
+      playerOneScore += 1
+    throwDart(myturtle)
+    if isInCircle(myturtle) == False:
+      playerTwoScore += 1
+  print("Player one has",playerOneScore, "points" )
+  print("Player two has",playerTwoScore, "points" )
+  if playerOneScore > playerTwoScore:
+    print("Player one has won!")
+  elif playerOneScore == playerTwoScore:
+    print("Tie!")
+  else:
+    print("Player Two has won!")
+
+def montePi(myturtle, number_darts):
+  '''
+  throws a given number of darts in the circle and calculates the darts in 
+  circle/numdarts * 4 which should be close to pi
+  args: the turtle, the number of darts thrown
+  returns: the number of darts in the circle over the total number of darts times 4
+  '''
+  inside_count = 0
+  for i in range(number_darts):
+    throwDart(myturtle)
+    if isInCircle(myturtle) == True:
+      inside_count += 1
+  return (inside_count/number_darts)*4
 
 #########################################################
 #         Do not alter any code below here              #
@@ -57,6 +168,7 @@ def main():
     for i in range(10):
         throwDart(darty)
     print("\tPart A Complete...")
+  
     print("=========== Part B ===========")
     darty.clear()
     setUpDartboard(window, darty)
@@ -79,5 +191,4 @@ def main():
     print("\tPart C Complete...")
     # Don't hide or mess with window while it's 'working'
     window.exitonclick()
-
 main()

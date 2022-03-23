@@ -8,18 +8,18 @@
 _Replace anything surrounded by the `< >` symbols._
 
 ## SUMMARY:
- < Provide a short description of your program's functionality. No more than a couple sentences. >
+The program has functions to draw a dartboard including a circle, axes, and a square. There are is a function to throw a dart to a random spot on the dartboard and determine whether the dart is in the circle or not. There is a function to play a two player darts game which will keep track of each players' score and display who won. There a function that throws a given number of darts and calculates the darts in the circle over total darts to find pi.
 
 ## GRACE DAYS
-Grace days used for this assignment: < # >
+Grace days used for this assignment: 0
 
-Grace days remaining: < # >/5
+Grace days remaining: 5/5
 
 ## KNOWN BUGS AND INCOMPLETE PARTS:
- < What parts of the project you were not able to complete >
+ None
 
 ## REFERENCES:
- < List any outside resources used >
+I used some of the premade turtle functions such as .dot(), .circle(), and .distance()
 
 ## MISCELLANEOUS COMMENTS:
- < Anything you would like the grader to know >
+
